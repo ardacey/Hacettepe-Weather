@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Background from '@/components/Background';
+import Background from '@/Components/Background';
 
 import {
   Card,
@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/Components/ui/card"
 
 interface ForecastData {
   dt: number;
