@@ -5,7 +5,7 @@ const Background = (props: { background: string }) => {
     <Image
       alt="Ankara"
       src={`/background/${props.background}.webp`}
-      quality={100}
+      quality={ 100 }
       fill
       sizes="100vw"
       style={{
