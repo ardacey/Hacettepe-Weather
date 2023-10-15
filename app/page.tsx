@@ -1,112 +1,159 @@
-import Image from 'next/image'
+import axios from 'axios';
+import Background from '@/components/Background';
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+interface ForecastData {
+  dt: number;
+  dt_txt: string;
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  weather: {
+    icon: string;
+    description: string;
+  }[];
+}
+
+const apiKey = process.env.PUBLIC_WEATHER_API_KEY;
+const apiUrl = 'https://api.openweathermap.org/data/2.5';
+
+const makeWeatherApiCall = async (endpoint: string) => {
+  const response = await axios.get(`${apiUrl}${endpoint}&appid=${apiKey}&units=metric`);
+  return response.data;
+};
+
+const getCurrentWeatherData = async () => {
+  const currentWeatherData = await makeWeatherApiCall(`/weather?lat=39.8674482&lon=32.7353845`);
+  return currentWeatherData;
+};
+
+const getForecastWeatherData = async () => {
+  const forecastWeatherData = await makeWeatherApiCall(`/forecast?lat=39.8674482&lon=32.7353845`);
+  return forecastWeatherData;
+};
+
+export default async function Home() {
+
+    const [currentWeatherData, forecastWeatherData] = await Promise.all([
+    getCurrentWeatherData(),
+    getForecastWeatherData(),
+  ]);
+
+  const description = currentWeatherData.weather[0].description;
+
+  const capitalizedWords = description.split(' ').map((word: string) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  });
+
+  const capitalizedDescription = capitalizedWords.join(' ');
+
+  const date = new Date();
+  const hours = ('0' + date.getHours()).slice(-2);
+  const minutes = ('0' + date.getMinutes()).slice(-2);
+  const showTime = hours + ':' + minutes;
+
+  function formatForecastDate(dateString: string) {
+    const forecastDate = new Date(dateString);
+    return forecastDate.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  const renderForecastCard = (forecast: ForecastData) => (
+    <Card className='w-[20%]' key={forecast.dt}>
+      <CardContent className='mt-5'>
+        <p>{formatForecastDate(forecast.dt_txt)}</p>
+        <p>{Math.round(forecast.main.temp)}° - {forecast.weather[0].description}</p>
+        <p>Humidity: %{forecast.main.humidity}</p>
+        <div>
+          <img src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`} alt="Weather Icon" />
         </div>
+      </CardContent>
+    </Card>
+  );
+
+  return (
+    <main>
+      <Background background={currentWeatherData.weather[0].icon}/>
+      <div className='relative mx-10 my-5 opacity-80'>
+        <Card>
+          <CardContent className='text-center mt-5 text-5xl'>
+            <p>Beytepe, Ankara, {showTime} GMT+03:00</p>
+          </CardContent>
+        </Card>
       </div>
+      <div className='relative flex flex-wrap justify-between mx-10 mt-10 opacity-80'>
+        <Card className='w-[30%]'>
+          <CardHeader>
+            <CardTitle>{Math.round(currentWeatherData.main.temp)}°</CardTitle>
+            <CardDescription>{capitalizedDescription}</CardDescription>
+          </CardHeader>
+          <CardContent className='flex flex-wrap'>
+            <div className='mr-10'>
+              <p>Minimum Temperature: {Math.round(currentWeatherData.main.temp_min)}</p>
+              <p>Maximum Temperature: {Math.round(currentWeatherData.main.temp_max)}</p>
+              <p>Apparent Temperature: {Math.round(currentWeatherData.main.feels_like)}</p>
+            </div>
+            <div>
+              <img 
+              src={`https://openweathermap.org/img/wn/${currentWeatherData.weather[0].icon}@2x.png`} 
+              alt="Weather Icon" />
+            </div>
+          </CardContent>
+        </Card>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+        <Card className='w-[30%]'>
+          <CardHeader>
+            <CardTitle>Wind & Cloudiness</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div>
+              <p>Wind Speed: {currentWeatherData.wind.speed} meter/sec</p>
+              <p>Wind Direction: {currentWeatherData.wind.deg} degrees</p>
+              <p>Cloudiness: %{currentWeatherData.clouds.all}</p>
+              <p>Pressure: {currentWeatherData.main.pressure} hPa</p>
+              <p>Humidity: %{currentWeatherData.main.humidity}</p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className='w-[30%]'>
+          <CardHeader>
+            <CardTitle>Rain & Snow</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {currentWeatherData.rain ? (
+              <div>
+                <p>Rain volume for the last 1 hour: ${currentWeatherData.rain['1h']} mm</p>
+                <p>Rain volume for the last 3 hour: ${currentWeatherData.rain['3h']} mm</p>
+              </div>
+            ) : currentWeatherData.snow ? (
+              <div>
+                <p>Snow volume for the last 1 hour: ${currentWeatherData.snow['1h']} mm</p>
+                <p>Snow volume for the last 3 hour: ${currentWeatherData.snow['3h']} mm</p>
+              </div>
+            ) : (
+              <p>No rain & snow data available</p>
+            )}
+          </CardContent>
+        </Card>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className='relative'>
+       <Card className='w-[95%] flex flex-wrap mx-10 mt-10 justify-between opacity-80'>
+          {[
+            forecastWeatherData.list[7],
+            forecastWeatherData.list[15],
+            forecastWeatherData.list[23],
+            forecastWeatherData.list[31],
+            forecastWeatherData.list[39],
+          ].map(renderForecastCard)}  
+        </Card>
       </div>
     </main>
   )
