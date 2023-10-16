@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Background from '@/components/Background';
 
 import {
@@ -8,6 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+
+import { getCurrentWeatherData, getForecastWeatherData} from "@/services/weather";
 
 interface ForecastData {
   dt: number;
@@ -22,23 +23,6 @@ interface ForecastData {
   }[];
 }
 
-const apiKey = process.env.PUBLIC_WEATHER_API_KEY;
-const apiUrl = 'https://api.openweathermap.org/data/2.5';
-
-const makeWeatherApiCall = async (endpoint: string) => {
-  const response = await axios.get(`${apiUrl}${endpoint}&appid=${apiKey}&units=metric`);
-  return response.data;
-};
-
-const getCurrentWeatherData = async () => {
-  const currentWeatherData = await makeWeatherApiCall(`/weather?lat=39.8674482&lon=32.7353845`);
-  return currentWeatherData;
-};
-
-const getForecastWeatherData = async () => {
-  const forecastWeatherData = await makeWeatherApiCall(`/forecast?lat=39.8674482&lon=32.7353845`);
-  return forecastWeatherData;
-};
 
 export default async function Home() {
 
@@ -56,7 +40,7 @@ export default async function Home() {
   const capitalizedDescription = capitalizedWords.join(' ');
 
   const date = new Date();
-  const hours = ('0' + date.getHours()).slice(-2);
+  const hours = ('0' + (date.getHours() + 3) % 24).slice(-2);
   const minutes = ('0' + date.getMinutes()).slice(-2);
   const showTime = hours + ':' + minutes;
 
