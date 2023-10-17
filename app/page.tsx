@@ -45,7 +45,7 @@ export default async function Home() {
 
   function formatForecastDate(dateString: string) {
     const forecastDate = new Date(dateString);
-    return forecastDate.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+    return forecastDate.toLocaleDateString('en-EN', { day: 'numeric', month: 'long', year: 'numeric' });
   }
 
   const renderForecastCard = (forecast: ForecastData) => (
