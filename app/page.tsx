@@ -138,7 +138,7 @@ export default async function Home() {
         </Card>
       </div>
       <div className='relative'>
-       <Card className='w-[95%] flex flex-wrap mx-[2.5%] md:mx-10 mt-10 justify-center opacity-80 bg-transparent border-none'>
+       <Card className='w-[95%] flex flex-wrap mx-[2.5%] md:mx-[2.5%] mt-10 justify-center opacity-80 bg-transparent border-none'>
           {[
             forecastWeatherData.list[7],
             forecastWeatherData.list[15],
