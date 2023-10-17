@@ -1,5 +1,6 @@
 import Background from '@/components/Background';
 import { getWeatherData } from '@/utils/WeatherApi';
+import Image from 'next/image'
 
 import {
   Card,
@@ -54,7 +55,12 @@ export default async function Home() {
         <p>{Math.round(forecast.main.temp)}° - {forecast.weather[0].description}</p>
         <p>Humidity: %{forecast.main.humidity}</p>
         <div>
-          <img src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`} alt="Weather Icon" />
+          <Image 
+          src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`} 
+          alt="Weather Icon" 
+          width={100}
+          height={100}
+          style={{ width: '100%', height: 'auto' }}/>
         </div>
       </CardContent>
     </Card>
@@ -83,9 +89,12 @@ export default async function Home() {
               <p>Apparent Temperature: {Math.round(currentWeatherData.main.feels_like)}</p>
             </div>
             <div>
-              <img 
+              <Image
               src={`https://openweathermap.org/img/wn/${currentWeatherData.weather[0].icon}@2x.png`} 
-              alt="Weather Icon" />
+              alt="Weather Icon"
+              width={100}
+              height={100}
+              style={{ width: '100%', height: 'auto' }} />
             </div>
           </CardContent>
         </Card>
