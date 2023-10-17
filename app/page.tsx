@@ -49,7 +49,7 @@ export default async function Home() {
   }
 
   const renderForecastCard = (forecast: ForecastData) => (
-    <Card className='w-[20%]' key={forecast.dt}>
+    <Card className='md:w-[20%] mb-5 md:mb-0' key={forecast.dt}>
       <CardContent className='mt-5'>
         <p>{formatForecastDate(forecast.dt_txt)}</p>
         <p>{Math.round(forecast.main.temp)}° - {forecast.weather[0].description}</p>
@@ -67,17 +67,19 @@ export default async function Home() {
   );
 
   return (
-    <main>
+    <main className='bg-gradient-to-r from-cyan-500 to-blue-500'>
+      <div className='hidden md:block'>
       <Background background={currentWeatherData.weather[0].icon}/>
-      <div className='relative mx-10 my-5 opacity-80'>
+      </div>
+      <div className='relative mx-5 md:mx-10 py-5 opacity-80'>
         <Card>
           <CardContent className='text-center mt-5 text-5xl'>
             <p>Beytepe, Ankara, {showTime} GMT+03:00</p>
           </CardContent>
         </Card>
       </div>
-      <div className='relative flex flex-wrap justify-between mx-10 mt-10 opacity-80'>
-        <Card className='w-[30%]'>
+      <div className='relative block md:flex flex-wrap justify-between mx-5 md:mx-10 mt-10 opacity-80'>
+        <Card className='md:w-[30%] mb-5 md:mb-0'>
           <CardHeader>
             <CardTitle>{Math.round(currentWeatherData.main.temp)}°</CardTitle>
             <CardDescription>{capitalizedDescription}</CardDescription>
@@ -99,7 +101,7 @@ export default async function Home() {
           </CardContent>
         </Card>
 
-        <Card className='w-[30%]'>
+        <Card className='md:w-[30%] mb-5 md:mb-0'>
           <CardHeader>
             <CardTitle>Wind & Cloudiness</CardTitle>
           </CardHeader>
@@ -114,7 +116,7 @@ export default async function Home() {
           </CardContent>
         </Card>
 
-        <Card className='w-[30%]'>
+        <Card className='md:w-[30%] mb-5 md:mb-0'>
           <CardHeader>
             <CardTitle>Rain & Snow</CardTitle>
           </CardHeader>
@@ -136,7 +138,7 @@ export default async function Home() {
         </Card>
       </div>
       <div className='relative'>
-       <Card className='w-[95%] flex flex-wrap mx-10 mt-10 justify-between opacity-80'>
+       <Card className='md:w-[95%] block md:flex flex-wrap mx-10 mt-10 justify-between opacity-80'>
           {[
             forecastWeatherData.list[7],
             forecastWeatherData.list[15],
