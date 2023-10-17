@@ -39,7 +39,7 @@ export default async function Home() {
   const capitalizedDescription = capitalizedWords.join(' ');
 
   const date = new Date();
-  const hours = ('0' + date.getHours()).slice(-2);
+  const hours = ('0' + (date.getHours() + 3) % 24).slice(-2);
   const minutes = ('0' + date.getMinutes()).slice(-2);
   const showTime = hours + ':' + minutes;
 
