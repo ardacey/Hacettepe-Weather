@@ -49,7 +49,7 @@ export default async function Home() {
   }
 
   const renderForecastCard = (forecast: ForecastData) => (
-    <Card className='w-[50%] md:w-[20%] mb-5 md:mb-0' key={forecast.dt}>
+    <Card className='w-[50%] md:w-[20%] mb-5 md:mb-0 text-sm md:text-base' key={forecast.dt}>
       <CardContent className='mt-5'>
         <p>{formatForecastDate(forecast.dt_txt)}</p>
         <p>{Math.round(forecast.main.temp)}° - {forecast.weather[0].description}</p>
@@ -138,7 +138,7 @@ export default async function Home() {
         </Card>
       </div>
       <div className='relative'>
-       <Card className='w-[95%] flex flex-wrap mx-[2.5%] md:mx-10 mt-10 justify-center opacity-80'>
+       <Card className='w-[95%] flex flex-wrap mx-[2.5%] md:mx-10 mt-10 justify-center opacity-80 bg-transparent border-none'>
           {[
             forecastWeatherData.list[7],
             forecastWeatherData.list[15],
