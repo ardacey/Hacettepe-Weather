@@ -60,7 +60,7 @@ export default async function Home() {
           alt="Weather Icon" 
           width={100}
           height={100}
-          style={{ width: '100%', height: 'auto' }}/>
+          style={{ width: '50%', height: 'auto' }}/>
         </div>
       </CardContent>
     </Card>
