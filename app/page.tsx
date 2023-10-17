@@ -49,7 +49,7 @@ export default async function Home() {
   }
 
   const renderForecastCard = (forecast: ForecastData) => (
-    <Card className='md:w-[20%] mb-5 md:mb-0' key={forecast.dt}>
+    <Card className='w-[50%] md:w-[20%] mb-5 md:mb-0' key={forecast.dt}>
       <CardContent className='mt-5'>
         <p>{formatForecastDate(forecast.dt_txt)}</p>
         <p>{Math.round(forecast.main.temp)}° - {forecast.weather[0].description}</p>
@@ -67,7 +67,7 @@ export default async function Home() {
   );
 
   return (
-    <main className='bg-gradient-to-r from-cyan-500 to-blue-500'>
+    <main className='bg-gradient-to-r from-[#243c5a] to-[#1700ab]'>
       <div className='hidden md:block'>
       <Background background={currentWeatherData.weather[0].icon}/>
       </div>
@@ -138,7 +138,7 @@ export default async function Home() {
         </Card>
       </div>
       <div className='relative'>
-       <Card className='md:w-[95%] block md:flex flex-wrap mx-10 mt-10 justify-between opacity-80'>
+       <Card className='w-[95%] flex flex-wrap mx-[2.5%] md:mx-10 mt-10 justify-center opacity-80'>
           {[
             forecastWeatherData.list[7],
             forecastWeatherData.list[15],
