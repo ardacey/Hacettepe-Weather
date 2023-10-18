@@ -123,13 +123,13 @@ export default async function Home() {
           <CardContent>
             {currentWeatherData.rain ? (
               <div>
-                <p>Rain volume for the last 1 hour: ${currentWeatherData.rain['1h']} mm</p>
-                <p>Rain volume for the last 3 hour: ${currentWeatherData.rain['3h']} mm</p>
+                <p>Rain volume for the last 1 hour: {currentWeatherData.rain['1h']} mm</p>
+                <p>Rain volume for the last 3 hour: {currentWeatherData.rain['3h']} mm</p>
               </div>
             ) : currentWeatherData.snow ? (
               <div>
-                <p>Snow volume for the last 1 hour: ${currentWeatherData.snow['1h']} mm</p>
-                <p>Snow volume for the last 3 hour: ${currentWeatherData.snow['3h']} mm</p>
+                <p>Snow volume for the last 1 hour: {currentWeatherData.snow['1h']} mm</p>
+                <p>Snow volume for the last 3 hour: {currentWeatherData.snow['3h']} mm</p>
               </div>
             ) : (
               <p>No rain & snow data available</p>
