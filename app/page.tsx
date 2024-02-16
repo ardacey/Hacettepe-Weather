@@ -78,7 +78,7 @@ export default async function Home() {
           </CardContent>
         </Card>
       </div>
-      <div className='relative block md:flex flex-wrap justify-between mx-0 md:mx-10 mt-10 opacity-80'>
+      <div className='relative block md:flex flex-wrap justify-between mx-10 md:mx-10 mt-10 opacity-80'>
         <Card className='md:w-[30%] mb-5 md:mb-0 hover:scale-125 transition duration-500 cursor-pointer'>
           <CardHeader>
             <CardTitle>{Math.round(currentWeatherData.main.temp)}°</CardTitle>
