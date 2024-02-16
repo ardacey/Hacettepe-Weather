@@ -101,7 +101,7 @@ export default async function Home() {
           </CardContent>
         </Card>
 
-        <Card className='md:w-[30%] mb-5 md:mb-0'>
+        <Card className='md:w-[30%] mb-5 md:mb-0 hover:scale-125 transition duration-500 cursor-pointer'>
           <CardHeader>
             <CardTitle>Wind & Cloudiness</CardTitle>
           </CardHeader>
@@ -116,7 +116,7 @@ export default async function Home() {
           </CardContent>
         </Card>
 
-        <Card className='md:w-[30%] mb-5 md:mb-0'>
+        <Card className='md:w-[30%] mb-5 md:mb-0 hover:scale-125 transition duration-500 cursor-pointer'>
           <CardHeader>
             <CardTitle>Rain & Snow</CardTitle>
           </CardHeader>
@@ -138,7 +138,7 @@ export default async function Home() {
         </Card>
       </div>
       <div className='relative'>
-       <Card className='w-[95%] flex flex-wrap mx-[2.5%] md:mx-[2.5%] mt-10 justify-center opacity-80 bg-transparent border-none'>
+       <Card className='w-[95%] flex flex-wrap mx-[2.5%] md:mx-[2.5%] mt-10 justify-center opacity-80 bg-transparent border-none hover:scale-125 transition duration-500 cursor-pointer'>
           {[
             forecastWeatherData.list[7],
             forecastWeatherData.list[15],
