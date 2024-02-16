@@ -1,6 +1,7 @@
 import Background from '@/components/Background';
 import { getWeatherData } from '@/utils/WeatherApi';
 import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
 
 import {
   Card,
@@ -26,6 +27,13 @@ interface ForecastData {
 export const revalidate = 10;
 export const dynamic = 'force-dynamic';
 
+const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+
 export default async function Home() {
 
   const {currentWeatherData, forecastWeatherData} = await getWeatherData();
@@ -49,7 +57,9 @@ export default async function Home() {
   }
 
   const renderForecastCard = (forecast: ForecastData) => (
-    <Card className='w-[50%] md:w-[20%] mb-5 md:mb-0 text-sm md:text-base hover:scale-125 transition duration-500 cursor-pointer' key={forecast.dt}>
+    <Card 
+      className={`w-[50%] md:w-[20%] mb-5 md:mb-0 text-sm md:text-base hover:scale-125 transition duration-500 cursor-pointer ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+      key={forecast.dt}>
       <CardContent className='mt-5'>
         <p>{formatForecastDate(forecast.dt_txt)}</p>
         <p>{Math.round(forecast.main.temp)}° - {forecast.weather[0].description}</p>
