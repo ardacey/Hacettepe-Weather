@@ -48,23 +48,8 @@ export default async function Home() {
     return forecastDate.toLocaleDateString('en-EN', { day: 'numeric', month: 'long', year: 'numeric' });
   }
 
-  const styles = `
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  .animate-fadeIn {
-    animation: fadeIn 1s ease-out;
-  }
-  `;
-
   const renderForecastCard = (forecast: ForecastData) => (
-    <Card className='w-[50%] md:w-[20%] mb-5 md:mb-0 text-sm md:text-base hover:scale-125 transition duration-500 cursor-pointer animate-fadeIn' key={forecast.dt}>
+    <Card className='w-[50%] md:w-[20%] mb-5 md:mb-0 text-sm md:text-base hover:scale-125 transition duration-500 cursor-pointer' key={forecast.dt}>
       <CardContent className='mt-5'>
         <p>{formatForecastDate(forecast.dt_txt)}</p>
         <p>{Math.round(forecast.main.temp)}° - {forecast.weather[0].description}</p>
