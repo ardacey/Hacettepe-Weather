@@ -8,5 +8,5 @@
 }
 
 .animate-fade-in {
-    animation: fadeIn ease-in-out 0.5s;
+    animation: fadeIn ease-in-out 2s;
 }

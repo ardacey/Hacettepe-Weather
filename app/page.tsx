@@ -80,7 +80,8 @@ export default async function Home() {
         </Card>
       </div>
       <div className='relative block md:flex flex-wrap justify-between mx-5 md:mx-10 mt-10 opacity-80'>
-        <Card className='md:w-[30%] mb-5 md:mb-0 hover:scale-125 transition duration-500 cursor-pointer'>
+        
+        <Card className='md:w-[30%] mb-5 md:mb-0 hover:scale-125 transition duration-500 cursor-pointer animate-fade-in'>
           <CardHeader>
             <CardTitle>{Math.round(currentWeatherData.main.temp)}°</CardTitle>
             <CardDescription>{capitalizedDescription}</CardDescription>
@@ -102,7 +103,7 @@ export default async function Home() {
           </CardContent>
         </Card>
 
-        <Card className='md:w-[30%] mb-5 md:mb-0 hover:scale-125 transition duration-500 cursor-pointer'>
+        <Card className='md:w-[30%] mb-5 md:mb-0 hover:scale-125 transition duration-500 cursor-pointer animate-fade-in'>
           <CardHeader>
             <CardTitle>Wind & Cloudiness</CardTitle>
           </CardHeader>
@@ -117,7 +118,7 @@ export default async function Home() {
           </CardContent>
         </Card>
 
-        <Card className='md:w-[30%] mb-5 md:mb-0 hover:scale-125 transition duration-500 cursor-pointer'>
+        <Card className='md:w-[30%] mb-5 md:mb-0 hover:scale-125 transition duration-500 cursor-pointer animate-fade-in'>
           <CardHeader>
             <CardTitle>Rain & Snow</CardTitle>
           </CardHeader>
