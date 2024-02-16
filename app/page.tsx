@@ -72,7 +72,7 @@ export default async function Home() {
       <div className='hidden md:block'>
       <Background background={currentWeatherData.weather[0].icon}/>
       </div>
-      <div className='relative mx-5 md:mx-10 py-5 opacity-80'>
+      <div className='relative mx-5 md:mx-10 py-5 opacity-80 animate-fade-in'>
         <Card>
           <CardContent className='text-center mt-5 text-5xl'>
             <p>Beytepe, Ankara, {showTime} GMT+03:00</p>
